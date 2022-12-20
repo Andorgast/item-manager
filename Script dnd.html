@@ -1,0 +1,107 @@
+ 
+<!-- Define the items and their initial values -->
+<script>
+    var items = [
+      {name: "Gear", value: 0},
+      {name: "Wire", value: 0},
+      {name: "Screws", value: 0},
+      {name: "Batteries", value: 0}
+    ];
+  </script>
+  <!-- Create a table to display the items and their values -->
+  <table>
+    <tr>
+      <th>Item</th>
+      <th>Value</th>
+      <th>Change Value</th>
+      <th>Action</th>
+    </tr>
+  
+    <!-- Loop over the items and create a row for each item -->
+    <script>
+      for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        document.write('<tr>');
+        document.write('<td>' + item.name + '</td>');
+        document.write('<td id="value-' + i + '">' + item.value + '</td>');
+        document.write('<td><button onclick="changeValue(' + i + ', -1)">-</button><button onclick="changeValue(' + i + ', 1)">+</button></td>');
+          document.write('<td><button id="button-' + i + '" onclick="sendDiscordMessage(' + i + ')">Send Discord Message</button></td>');
+      }
+    </script>
+  </table>
+  
+  <!-- Define the changeValue function to update the value of an item -->
+  <script>
+  function changeValue(index, delta) {
+    // Update the item value
+    items[index].value += delta;
+  
+    // Update the value in the table
+    var valueElement = document.getElementById('value-' + index);
+    valueElement.innerHTML = items[index].value;
+  
+    // Check if the item value is at least 20 and show or hide the button
+    var button = document.getElementById('button-' + index);
+    if (items[index].value >= 20) {
+      button.style.display = "inline-block";
+    } else {
+      button.style.display = "none";
+    }
+  }
+  </script>
+  <script>
+    changeValue(0, -1);
+    setTimeout(function() {
+      changeValue(0, 1);
+    }, 1);
+      changeValue(1, -1);
+    setTimeout(function() {
+      changeValue(1, 1);
+    }, 1);
+      changeValue(2, -1);
+    setTimeout(function() {
+      changeValue(2, 1);
+    }, 1);
+      changeValue(3, -1);
+    setTimeout(function() {
+      changeValue(3, 1);
+    }, 1);
+  </script>
+  <!-- Define the sendDiscordMessage function to send a message to Discord -->
+  <script>
+    function sendDiscordMessage(index) {
+      // Get the item name
+      var Username = prompt('What is your name?')
+      var itemName = items[index].name;
+      var itemValue = items[index].value;
+  
+      // Send the message to Discord
+      alert("Sending message to Discord: Hello, " + Username + ' Crafted using ' + itemName + ' with ' + itemValue + ' pieces');
+    }
+  </script>
+  <script>
+  // Install the Discord.js library by running "npm install discord.js"
+  const Discord = require('discord.js');
+  
+  // Create a new Discord client
+  const client = new Discord.Client();
+  
+  const token = 'MTA1NDMzNzA5MDYwMDU4MzIzOQ.GjLyc8.jhYF_XT1opJCLi3LUJoCZ9VoYy8wLf_XPGDlKA';
+  const serverId = '988375283847557181';
+  const userId= '703381063128449034';
+  
+  // This function will run when the bot is ready
+  client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+  
+    // Get the server and the user
+    const server = client.guilds.cache.get(serverId);
+    const user = server.members.cache.get(userId);
+  
+    // Send a message to the server and ping the user
+    server.channels.cache.get(server.defaultChannel.id).send('Hello, ' + Username + ' Crafted using ' + itemName + ' with ' + itemValue + ' pieces, ' + ${user});
+  });
+  
+  // Log the bot in
+  client.login(token);
+  </script>
